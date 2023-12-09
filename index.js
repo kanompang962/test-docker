@@ -6,24 +6,28 @@ const port = 8000
 let conn = null
 
 const initMySQL = async () => {
-    conn = await mysql.createConnection({
-      host: 'db', // หรือใส่เป็น localhost ก็ได้
-      user: 'root',
-      password: 'root',
-      database: 'tutorial'
-    })
-  }
+  conn = await mysql.createConnection({
+    host: 'db', // หรือใส่เป็น localhost ก็ได้
+    user: 'root',
+    password: 'root',
+    database: 'tutorial'
+  })
+}
 
 app.get('/hello-world', (req, res) => {
   res.send('hello world')
 })
 
+app.get('/test', (req, res) => {
+  res.send('test')
+})
+
 app.get('/users', async (req, res) => {
-    const [results] = await conn.query('SELECT * FROM users')
-    res.json(results)
-  })
+  const [results] = await conn.query('SELECT * FROM users')
+  res.json(results)
+})
 
 app.listen(port, async () => {
-    await initMySQL()
+  await initMySQL()
   console.log(`Server running at http://localhost:${port}/`)
 })
